@@ -1,0 +1,182 @@
+\documentclass{article}
+
+% Shell lines
+\usepackage{xcolor}
+\usepackage{listings}
+\lstdefinestyle{BashInputStyle}{
+  language=bash,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=3pt,
+  frame=tb,
+  columns=fullflexible,
+  backgroundcolor=\color{yellow!20},
+  linewidth=0.9\linewidth,
+  xleftmargin=0.1\linewidth
+}
+
+\title{Git Cheat Sheet}
+\author{Patrick Rabier}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Git Basics}
+
+\subsection{Adding Changes to the repository}
+After creating or modifying files, add them to the index with the following command :
+\begin{lstlisting}[style=BashInputStyle]
+    #  git add [files]
+\end{lstlisting}
+
+The index contains all the files that will be commited
+
+\subsection{Commiting files}
+
+Commit the files which have been added to the index with the following :
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git commit -m [Commit message]
+\end{lstlisting}
+
+The '-a' flag can be used to automatically add all the versioned files which have been modified.
+
+\subsection{Pushing the changes}
+
+To send the local changes to the remote server, use the push method as follows: 
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git push
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Git Branching}
+
+How to manipulate branches
+
+\subsection{Displaying existing branches}
+\begin{lstlisting}[style=BashInputStyle]
+    #  git branch
+\end{lstlisting}
+
+\subsection{Creating a branch}
+Use the following command to create a branch :
+\begin{lstlisting}[style=BashInputStyle]
+    # git branch [branch name]
+\end{lstlisting}
+This only creates the branch. It does not switch to it
+
+\subsection{Switching to a branch}
+\begin{lstlisting}[style=BashInputStyle]
+    #  git checkout [branch name]
+\end{lstlisting}
+Modifications you make on a branch won't affect other branches
+
+\subsection{Pushing a branch to a remote repository}
+\begin{lstlisting}[style=BashInputStyle]
+    # git push [repository] [branch name]
+\end{lstlisting}
+If the branch doesn't exist on the remote repository, it will be created.
+If the branch already exists, it will be updated with the latest commits
+Example :
+\begin{lstlisting}[style=BashInputStyle]
+    # git push origin mybranch
+\end{lstlisting}
+'origin' is typically the main repository. However, others may be added using the following command :
+\begin{lstlisting}[style=BashInputStyle]
+    # git remote add [repository name] [repository url]
+\end{lstlisting}
+
+\subsection{Deleting a local branch}
+\begin{lstlisting}[style=BashInputStyle]
+    #  git branch -d [branch name]
+\end{lstlisting}
+This will only delete the branch locally
+
+\subsection{Deleting a remote branch}
+\begin{lstlisting}[style=BashInputStyle]
+    #  git push [remote repository name] :[branch name]
+\end{lstlisting}
+This will only delete the branch on the remote repository
+Example :
+\begin{lstlisting}[style=BashInputStyle]
+    #  git push origin :mybranch
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Fixing Sh** up}
+
+\subsection{Reverting a commit after a mistake was made}
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git revert HEAD~1
+\end{lstlisting}
+
+if the bad commit has already been pushed, it can be overriden by forcing the push with the '-f' flag, carefully of course.
+
+\subsection{Conflicts in a pull request ?}
+
+Rebase your branch on the one you're trying to merge in
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git rebase [branch to merge into]
+\end{lstlisting}
+
+This will apply every commit you have made on the branch. When conflicts occur while rebasing, simply fix the files and add them
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git add [files]
+\end{lstlisting}
+
+After adding the files, the rebase can continue
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git rebase --continue
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Simply useful}
+
+\subsection{Git Stash}
+
+\subsubsection{Stashing your changes}
+
+If you have made changes to a file that you do not with to have any more, but still want to save for later, you can stash them with the following command
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git stash
+\end{lstlisting}
+
+This will add them to a stack of changes.
+
+\subsubsection{Re-using your stashed changes}
+
+You can pop the stack of changes, and have the latest changes be applied using the following command :
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git stash pop
+\end{lstlisting}
+
+If you wish to apply them, but without popping the stack, just use the 'apply' command as follows :
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git stash apply
+\end{lstlisting}
+
+\subsubsection{Stashing only a portion of your changes}
+
+\begin{lstlisting}[style=BashInputStyle]
+    #  git stash -p
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
