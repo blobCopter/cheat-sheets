@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings, xcolor}
+
+\lstdefinestyle{lua}{
+  language=[5.1]Lua,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{magenta},
+  stringstyle=\color{blue},
+  commentstyle=\color{black!50}
+}
+
+\title{My Lua Helper}
+\author{Patrick R}
+\date{December 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Classes}
+\lstinputlisting[style=lua, frame=single]{class.lua}
+
+\section{Inheritance}
+\lstinputlisting[style=lua, frame=single]{inheritance.lua}
+
+\end{document}
